@@ -4,12 +4,16 @@ import { List, X } from "phosphor-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
-const navLinks = [
-  { href: "#hero", label: "Home" },
-  { href: "#testimonials", label: "Testimonials" },
-  { href: "#journey", label: "Experience" },
-  { href: "#menu", label: "Menu" },
-  { href: "#experiences", label: "Packages" },
+const leftNavLinks = [
+  { href: "#story", label: "OUR STORY" },
+  { href: "#menu", label: "MENU" },
+  { href: "#gallery", label: "GALLERY" },
+];
+
+const rightNavLinks = [
+  { href: "#events", label: "EVENTS" },
+  { href: "/blog", label: "BLOG", isExternal: true },
+  { href: "/contact", label: "CONTACT", isExternal: true },
 ];
 
 export function Navigation() {
@@ -24,7 +28,9 @@ export function Navigation() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const scrollToSection = (href: string) => {
+  const handleNavClick = (href: string, isExternal?: boolean) => {
+    if (isExternal) return;
+    
     const element = document.querySelector(href);
     if (element) {
       element.scrollIntoView({ behavior: "smooth" });
@@ -35,97 +41,115 @@ export function Navigation() {
   return (
     <nav className={cn(
       "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
-      isScrolled ? "glass-nav py-4" : "py-6"
+      "glass bg-background/80 backdrop-blur-md border-b border-glass-border",
+      isScrolled ? "py-3" : "py-4"
     )}>
-      <div className="container mx-auto px-6 flex items-center justify-between">
-        <Link to="/" className="text-2xl font-medium text-primary">
-          Rio Cafe
-        </Link>
+      <div className="container mx-auto px-6">
+        <div className="flex items-center justify-between min-h-[60px]">
+          {/* Left Navigation */}
+          <div className="hidden lg:flex items-center space-x-8 flex-1">
+            {leftNavLinks.map((link) => (
+              <button
+                key={link.href}
+                onClick={() => handleNavClick(link.href)}
+                className="text-sm font-medium text-foreground/80 hover:text-primary transition-colors tracking-wider"
+              >
+                {link.label}
+              </button>
+            ))}
+          </div>
 
-        {/* Desktop Navigation */}
-        <div className="hidden md:flex items-center space-x-8">
-          {navLinks.map((link) => (
-            <button
-              key={link.href}
-              onClick={() => scrollToSection(link.href)}
-              className="text-primary/80 hover:text-primary transition-colors"
-            >
-              {link.label}
-            </button>
-          ))}
-          <Link to="/about">About</Link>
-          <Link to="/contact">Contact</Link>
-          <Link to="/blog">Blog</Link>
-        </div>
-
-        <Button
-          variant="outline"
-          size="sm"
-          className="hidden md:flex neomorphic border-0 text-primary hover:text-accent"
-        >
-          Reserve a Table
-        </Button>
-
-        {/* Mobile Menu Button */}
-        <Button
-          variant="ghost"
-          size="sm"
-          className="md:hidden p-2"
-          onClick={() => setIsOpen(true)}
-        >
-          <List size={24} />
-        </Button>
-
-        {/* Mobile Menu */}
-        <div className={cn(
-          "fixed inset-0 z-50 bg-background/95 backdrop-blur-sm transition-opacity duration-300 md:hidden",
-          isOpen ? "opacity-100" : "opacity-0 pointer-events-none"
-        )}>
-          <div className={cn(
-            "fixed right-0 top-0 h-full w-80 max-w-[90vw] glass transform transition-transform duration-300",
-            isOpen ? "translate-x-0" : "translate-x-full"
-          )}>
-            <div className="flex items-center justify-between p-6 border-b border-glass-border">
-              <span className="text-xl font-medium">Menu</span>
-              <Button variant="ghost" size="sm" onClick={() => setIsOpen(false)}>
-                <X size={24} />
-              </Button>
+          {/* Center Logo */}
+          <div className="flex items-center space-x-3">
+            <div className="w-8 h-8 bg-gradient-to-br from-primary to-accent rounded-full flex items-center justify-center">
+              <span className="text-white font-bold text-sm">R</span>
             </div>
-            <div className="flex flex-col p-6 space-y-4">
-              {navLinks.map((link) => (
+            <Link to="/" className="text-xl font-bold text-primary tracking-wider">
+              RIO CAFE
+            </Link>
+          </div>
+
+          {/* Right Navigation */}
+          <div className="hidden lg:flex items-center space-x-8 flex-1 justify-end">
+            {rightNavLinks.map((link) => (
+              link.isExternal ? (
+                <Link
+                  key={link.href}
+                  to={link.href}
+                  className="text-sm font-medium text-foreground/80 hover:text-primary transition-colors tracking-wider"
+                >
+                  {link.label}
+                </Link>
+              ) : (
                 <button
                   key={link.href}
-                  onClick={() => scrollToSection(link.href)}
-                  className="text-left py-3 text-lg text-primary/80 hover:text-primary transition-colors"
+                  onClick={() => handleNavClick(link.href)}
+                  className="text-sm font-medium text-foreground/80 hover:text-primary transition-colors tracking-wider"
                 >
                   {link.label}
                 </button>
-              ))}
-              <Link 
-                to="/about" 
-                className="py-3 text-lg text-primary/80 hover:text-primary transition-colors"
-                onClick={() => setIsOpen(false)}
-              >
-                About
-              </Link>
-              <Link 
-                to="/contact" 
-                className="py-3 text-lg text-primary/80 hover:text-primary transition-colors"
-                onClick={() => setIsOpen(false)}
-              >
-                Contact
-              </Link>
-              <Link 
-                to="/blog" 
-                className="py-3 text-lg text-primary/80 hover:text-primary transition-colors"
-                onClick={() => setIsOpen(false)}
-              >
-                Blog
-              </Link>
-              <Button className="mt-4 neomorphic border-0 text-primary hover:text-accent">
-                Reserve a Table
-              </Button>
-            </div>
+              )
+            ))}
+            <Button
+              variant="default"
+              size="sm"
+              className="bg-accent hover:bg-accent/90 text-white border-0 px-6 py-2 text-sm font-medium tracking-wider"
+            >
+              FIND A TABLE
+            </Button>
+          </div>
+
+          {/* Mobile Menu Button */}
+          <Button
+            variant="ghost"
+            size="sm"
+            className="lg:hidden p-2"
+            onClick={() => setIsOpen(true)}
+          >
+            <List size={24} />
+          </Button>
+        </div>
+      </div>
+
+      {/* Mobile Menu */}
+      <div className={cn(
+        "fixed inset-0 z-50 bg-background/95 backdrop-blur-sm transition-opacity duration-300 lg:hidden",
+        isOpen ? "opacity-100" : "opacity-0 pointer-events-none"
+      )}>
+        <div className={cn(
+          "fixed right-0 top-0 h-full w-80 max-w-[90vw] glass transform transition-transform duration-300",
+          isOpen ? "translate-x-0" : "translate-x-full"
+        )}>
+          <div className="flex items-center justify-between p-6 border-b border-glass-border">
+            <span className="text-xl font-medium">Menu</span>
+            <Button variant="ghost" size="sm" onClick={() => setIsOpen(false)}>
+              <X size={24} />
+            </Button>
+          </div>
+          <div className="flex flex-col p-6 space-y-4">
+            {[...leftNavLinks, ...rightNavLinks].map((link) => (
+              'isExternal' in link && link.isExternal ? (
+                <Link
+                  key={link.href}
+                  to={link.href}
+                  className="py-3 text-lg text-foreground/80 hover:text-primary transition-colors"
+                  onClick={() => setIsOpen(false)}
+                >
+                  {link.label}
+                </Link>
+              ) : (
+                <button
+                  key={link.href}
+                  onClick={() => handleNavClick(link.href)}
+                  className="text-left py-3 text-lg text-foreground/80 hover:text-primary transition-colors"
+                >
+                  {link.label}
+                </button>
+              )
+            ))}
+            <Button className="mt-4 bg-accent hover:bg-accent/90 text-white border-0">
+              FIND A TABLE
+            </Button>
           </div>
         </div>
       </div>

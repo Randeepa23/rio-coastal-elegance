@@ -47,36 +47,33 @@ export function Navigation() {
       <div className="container mx-auto px-6">
         <div className="flex items-center justify-between min-h-[60px]">
           {/* Left Navigation */}
-          <div className="hidden lg:flex items-center space-x-8 flex-1">
+          <div className="hidden lg:flex items-center space-x-12 flex-1">
             {leftNavLinks.map((link) => (
               <button
                 key={link.href}
                 onClick={() => handleNavClick(link.href)}
-                className="text-sm font-medium text-foreground/80 hover:text-primary transition-colors tracking-wider"
+                className="text-sm font-medium text-foreground/90 hover:text-primary transition-colors tracking-wider"
               >
                 {link.label}
               </button>
             ))}
           </div>
 
-          {/* Center Logo */}
-          <div className="flex items-center space-x-3">
-            <div className="w-8 h-8 bg-gradient-to-br from-primary to-accent rounded-full flex items-center justify-center">
-              <span className="text-white font-bold text-sm">R</span>
-            </div>
-            <Link to="/" className="text-xl font-bold text-primary tracking-wider">
+          {/* Center Logo - Made More Prominent */}
+          <div className="flex items-center space-x-4">
+            <Link to="/" className="text-3xl font-bold text-primary tracking-wider font-serif">
               RIO CAFE
             </Link>
           </div>
 
           {/* Right Navigation */}
-          <div className="hidden lg:flex items-center space-x-8 flex-1 justify-end">
+          <div className="hidden lg:flex items-center space-x-12 flex-1 justify-end">
             {rightNavLinks.map((link) => (
               link.isExternal ? (
                 <Link
                   key={link.href}
                   to={link.href}
-                  className="text-sm font-medium text-foreground/80 hover:text-primary transition-colors tracking-wider"
+                  className="text-sm font-medium text-foreground/90 hover:text-primary transition-colors tracking-wider"
                 >
                   {link.label}
                 </Link>
@@ -84,7 +81,7 @@ export function Navigation() {
                 <button
                   key={link.href}
                   onClick={() => handleNavClick(link.href)}
-                  className="text-sm font-medium text-foreground/80 hover:text-primary transition-colors tracking-wider"
+                  className="text-sm font-medium text-foreground/90 hover:text-primary transition-colors tracking-wider"
                 >
                   {link.label}
                 </button>
@@ -92,8 +89,8 @@ export function Navigation() {
             ))}
             <Button
               variant="default"
-              size="sm"
-              className="bg-accent hover:bg-accent/90 text-white border-0 px-6 py-2 text-sm font-medium tracking-wider"
+              size="lg"
+              className="bg-accent hover:bg-accent/90 text-white border-0 px-8 py-3 text-sm font-semibold tracking-wider shadow-lg"
             >
               FIND A TABLE
             </Button>
@@ -147,7 +144,7 @@ export function Navigation() {
                 </button>
               )
             ))}
-            <Button className="mt-4 bg-accent hover:bg-accent/90 text-white border-0">
+            <Button className="mt-4 bg-accent hover:bg-accent/90 text-white border-0 px-8 py-3 text-sm font-semibold tracking-wider shadow-lg">
               FIND A TABLE
             </Button>
           </div>

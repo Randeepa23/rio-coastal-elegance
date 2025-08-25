@@ -153,6 +153,20 @@
     border-bottom: 1px solid hsl(var(--glass-border));
   }
   
+  /* Text shadow utilities for better readability */
+  .text-shadow {
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  }
+
+  .text-shadow-lg {
+    text-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+  }
+
+  /* Enhanced font families */
+  .font-serif {
+    font-family: 'Playfair Display', serif;
+  }
+  
   /* Neumorphic Button */
   .neomorphic {
     background: linear-gradient(145deg, hsl(45 20% 96%), hsl(45 15% 92%));

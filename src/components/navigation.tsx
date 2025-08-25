@@ -41,8 +41,9 @@ export function Navigation() {
   return (
     <nav className={cn(
       "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
-      "glass bg-background/80 backdrop-blur-md border-b border-glass-border",
-      isScrolled ? "py-3" : "py-4"
+      "bg-background/90 backdrop-blur-lg border-b border-border/20",
+      "shadow-sm",
+      isScrolled ? "py-2" : "py-3"
     )}>
       <div className="container mx-auto px-6">
         <div className="flex items-center justify-between min-h-[60px]">

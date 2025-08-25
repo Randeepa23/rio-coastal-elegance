@@ -162,6 +162,25 @@
     text-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
   }
 
+  /* Swiper Custom Styles */
+  .swiper-pagination-bullet {
+    @apply w-3 h-3 bg-white/50 opacity-100 transition-all duration-300;
+  }
+
+  .swiper-pagination-bullet-active {
+    @apply bg-white scale-125 shadow-lg;
+  }
+
+  .swiper-button-prev,
+  .swiper-button-next {
+    @apply text-white opacity-70 hover:opacity-100 transition-opacity duration-300;
+  }
+
+  .swiper-button-prev:after,
+  .swiper-button-next:after {
+    @apply text-2xl;
+  }
+
   /* Enhanced font families */
   .font-serif {
     font-family: 'Playfair Display', serif;
